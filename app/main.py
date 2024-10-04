@@ -10,7 +10,7 @@ def subprocess_run(argv: list[str]):
     
 
 def main():
-    bin_path = sys.argv[2]
+    bin_path = sys.argv[3]
     with tempfile.TemporaryDirectory() as dir:
         shutil.move(bin_path, os.path.join(dir, bin_path))
         os.chroot(dir)
