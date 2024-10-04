@@ -2,14 +2,14 @@ import subprocess
 import sys
 
 
-def run_local(argv: list[str]):
-    completed_process = subprocess.run(argv, capture_output=True)
-    return completed_process.stdout.decode("utf-8")
-
+def subprocess_run(argv: list[str]):
+    return subprocess.run(argv, capture_output=True)
+    
 
 def main():
-    local_res = run_local(sys.argv[3:])
-    print(local_res)
+    completed = subprocess_run(sys.argv[3:])
+    sys.stdout.buffer.write(completed.stdout)
+    sys.stderr.buffer.write(completed.stderr)
 
 
 if __name__ == "__main__":
