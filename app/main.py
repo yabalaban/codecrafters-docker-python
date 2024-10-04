@@ -3,6 +3,12 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import ctypes
+
+
+libc = ctypes.CDLL(None)
+UNSHARE_SYSCALL = 272
+CLONE_NEWPID = 0x20000000
 
 
 def subprocess_run(argv: list[str]):
@@ -10,6 +16,8 @@ def subprocess_run(argv: list[str]):
     
 
 def main():
+    libc.syscall(UNSHARE_SYSCALL, CLONE_NEWPID)
+
     bin_path = sys.argv[3]
     with tempfile.TemporaryDirectory() as dir:
         shutil.copy(bin_path, dir)
