@@ -10,6 +10,7 @@ def main():
     completed = subprocess_run(sys.argv[3:])
     sys.stdout.buffer.write(completed.stdout)
     sys.stderr.buffer.write(completed.stderr)
+    sys.exit(completed.returncode)
 
 
 if __name__ == "__main__":
