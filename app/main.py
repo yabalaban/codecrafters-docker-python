@@ -12,9 +12,9 @@ def subprocess_run(argv: list[str]):
 def main():
     bin_path = sys.argv[3]
     with tempfile.TemporaryDirectory() as dir:
-        shutil.move(bin_path, os.path.join(dir, bin_path))
+        shutil.copy(bin_path, dir)
         os.chroot(dir)
-        completed = subprocess_run(sys.argv[3:])
+        completed = subprocess_run([f'/{os.path.basename(bin_path)}'] + sys.argv[4:])
         sys.stdout.buffer.write(completed.stdout)
         sys.stderr.buffer.write(completed.stderr)
         sys.exit(completed.returncode)
